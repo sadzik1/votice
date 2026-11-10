@@ -5,6 +5,7 @@ services:
     name: survey-app
     runtime: node
     plan: free
+    region: frankfurt
     # devDependencies are needed for the build (tsc, vite)
     buildCommand: npm ci --include=dev && npm run build && npm run db:deploy -w @survey/api
     startCommand: npm start -w @survey/api
