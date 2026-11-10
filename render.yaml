@@ -1,0 +1,18 @@
+# the API serves the frontend too, so it's a single web service.
+# DATABASE_URL comes from Neon (see README).
+services:
+  - type: web
+    name: survey-app
+    runtime: node
+    plan: free
+    # devDependencies are needed for the build (tsc, vite)
+    buildCommand: npm ci --include=dev && npm run build && npm run db:deploy -w @survey/api
+    startCommand: npm start -w @survey/api
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "24"
+      - key: DATABASE_URL
+        sync: false
