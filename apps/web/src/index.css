@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+/* dark: follows the .dark class on <html> instead of prefers-color-scheme */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* color tokens, .dark overrides them */
+:root {
+  color-scheme: light;
+
+  --canvas: #f8fafc;
+  --surface: #ffffff;
+  --subtle: #f1f5f9;
+  --line: #e2e8f0;
+  --line-strong: #cbd5e1;
+
+  --ink: #0f172a;
+  --ink-soft: #334155;
+  --ink-muted: #475569;
+  --ink-subtle: #64748b;
+  --ink-faint: #94a3b8;
+
+  --accent: #4f46e5;
+  --accent-ink: #4f46e5;
+  --accent-soft: #eef2ff;
+  --chart: #4f46e5;
+  --chart-hover: #4338ca;
+
+  --danger: #e11d48;
+  --warning: #b45309;
+}
+
+.dark {
+  color-scheme: dark;
+
+  --canvas: #020617;
+  --surface: #0f172a;
+  --subtle: #1e293b;
+  --line: #1e293b;
+  --line-strong: #334155;
+
+  --ink: #f1f5f9;
+  --ink-soft: #cbd5e1;
+  --ink-muted: #94a3b8;
+  --ink-subtle: #8492a8;
+  --ink-faint: #64748b;
+
+  --accent: #6366f1;
+  --accent-ink: #a5b4fc;
+  --accent-soft: rgb(99 102 241 / 0.18);
+  --chart: #7174f3;
+  --chart-hover: #8b8ef6;
+
+  --danger: #fb7185;
+  --warning: #fbbf24;
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-subtle: var(--ink-subtle);
+  --color-ink-faint: var(--ink-faint);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-chart: var(--chart);
+  --color-chart-hover: var(--chart-hover);
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+}
+
+@layer base {
+  body {
+    @apply bg-canvas text-ink antialiased;
+  }
+}
