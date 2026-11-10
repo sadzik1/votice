@@ -1,0 +1,27 @@
+node_modules
+dist
+coverage
+*.tsbuildinfo
+*.log
+
+# env
+.env
+.env.*
+!.env.example
+
+# generated
+apps/api/src/generated
+
+# editors / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+
+# local tooling
+.claude/
+
+# playwright
+test-results
+playwright-report

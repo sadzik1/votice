@@ -1,0 +1,35 @@
+{
+  "name": "survey-app",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.22"
+  },
+  "workspaces": [
+    "packages/shared",
+    "apps/api",
+    "apps/web"
+  ],
+  "scripts": {
+    "postinstall": "npm run build -w @survey/shared && npm run db:generate -w @survey/api",
+    "dev": "concurrently -k -n shared,api,web -c blue,green,magenta \"npm run dev -w @survey/shared\" \"npm run dev -w @survey/api\" \"npm run dev -w @survey/web\"",
+    "build": "npm run build --workspaces",
+    "typecheck": "npm run typecheck --workspaces && tsc -p e2e",
+    "test": "npm run test --workspaces",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "db:up": "docker compose up -d db",
+    "db:down": "docker compose down",
+    "db:migrate": "npm run db:migrate -w @survey/api",
+    "test:integration": "npm run test:integration -w @survey/api",
+    "db:seed": "npm run db:seed -w @survey/api",
+    "test:e2e": "playwright test",
+    "db:deploy": "npm run db:deploy -w @survey/api"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.6.6",
+    "@playwright/test": "^1.65.0",
+    "concurrently": "^10.0.7",
+    "typescript": "~7.0.2"
+  }
+}
