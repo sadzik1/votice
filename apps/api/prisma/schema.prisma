@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// must match the enums in packages/shared (see src/lib/contract.ts)
+enum SurveyStatus {
+  DRAFT
+  OPEN
+  CLOSED
+}
+
+enum QuestionType {
+  SINGLE_CHOICE
+  MULTIPLE_CHOICE
+  TEXT
+  SCALE
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  sessions     Session[]
+  surveys      Survey[]
+}
+
+/// only a sha256 of the cookie token is stored
+model Session {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Survey {
+  id          String       @id @default(cuid())
+  /// public id for /s/:slug
+  slug        String       @unique
+  title       String
+  description String?
+  status      SurveyStatus @default(DRAFT)
+  closesAt    DateTime?
+  publishedAt DateTime?
+  ownerId     String
+  owner       User         @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  questions   Question[]
+  responses   Response[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@index([ownerId, createdAt])
+}
+
+model Question {
+  id       String       @id @default(cuid())
+  surveyId String
+  survey   Survey       @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  position Int
+  type     QuestionType
+  title    String
+  required Boolean      @default(true)
+  /// SCALE only
+  scaleMin Int?
+  scaleMax Int?
+  options  Option[]
+  answers  Answer[]
+
+  @@index([surveyId, position])
+}
+
+model Option {
+  id         String   @id @default(cuid())
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  position   Int
+  label      String
+  answers    Answer[]
+
+  @@index([questionId, position])
+}
+
+model Response {
+  id            String   @id @default(cuid())
+  surveyId      String
+  survey        Survey   @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+  /// hashed cookie id, blocks repeat submissions
+  respondentKey String?
+  answers       Answer[]
+  createdAt     DateTime @default(now())
+
+  @@unique([surveyId, respondentKey])
+  @@index([surveyId, createdAt])
+}
+
+/// one row per selected option, or one row with text/value
+model Answer {
+  id         String   @id @default(cuid())
+  responseId String
+  response   Response @relation(fields: [responseId], references: [id], onDelete: Cascade)
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  optionId   String?
+  option     Option?  @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  text       String?
+  value      Int?
+
+  @@index([questionId, optionId])
+  @@index([responseId])
+}
