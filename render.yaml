@@ -2,7 +2,7 @@
 # DATABASE_URL comes from Neon (see README).
 services:
   - type: web
-    name: survey-app
+    name: votice
     runtime: node
     plan: free
     region: frankfurt
