@@ -5,6 +5,12 @@ A small Google Forms clone: build a survey, share a link, see the answers come i
 Demo: https://votice.onrender.com (account `demo@example.com` / `demo-password`).
 The demo runs on a free Render instance, so the first load after a while can take about a minute.
 
+| Results (dark theme) | Builder |
+| --- | --- |
+| ![Results page with charts](docs/screenshots/results.png) | ![Survey builder](docs/screenshots/builder.png) |
+| **My surveys** | **Answer page** |
+| ![List of surveys](docs/screenshots/surveys.png) | ![Public answer page](docs/screenshots/answer.png) |
+
 ## Features
 
 - Sign up / sign in with server-side sessions (httpOnly cookie)
