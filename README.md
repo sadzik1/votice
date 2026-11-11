@@ -1,4 +1,4 @@
-# Survey App
+# Votice
 
 A small Google Forms clone: build a survey, share a link, see the answers come in live.
 

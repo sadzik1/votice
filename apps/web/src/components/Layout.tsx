@@ -13,7 +13,7 @@ function Logo() {
   return (
     <Link to="/" className="flex items-center gap-2 font-semibold">
       <img src="/favicon.svg" alt="" className="size-6" />
-      Survey App
+      Votice
     </Link>
   );
 }
@@ -59,7 +59,7 @@ function UserNav() {
 function Footer() {
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="mx-auto max-w-5xl px-4 py-3 text-xs text-ink-subtle">Survey App</div>
+      <div className="mx-auto max-w-5xl px-4 py-3 text-xs text-ink-subtle">Votice</div>
     </footer>
   );
 }
@@ -96,7 +96,7 @@ export function PublicLayout() {
         <span>
           Made with{" "}
           <Link to="/" className="font-medium text-ink-soft hover:underline">
-            Survey App
+            Votice
           </Link>
         </span>
         <ThemeToggle />
