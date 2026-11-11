@@ -2,7 +2,7 @@
 
 A small Google Forms clone: build a survey, share a link, see the answers come in live.
 
-Demo: _coming soon_. Demo account: `demo@example.com` / `demo-password`.
+Demo: https://survey-app-ponb.onrender.com (account `demo@example.com` / `demo-password`).
 The demo runs on a free Render instance, so the first load after a while can take about a minute.
 
 ## Features
