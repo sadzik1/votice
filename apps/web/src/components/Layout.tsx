@@ -1,7 +1,5 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import { useLogout, useMe } from "../api/auth.ts";
-import { useHealth } from "../api/health.ts";
-import { ApiStatus } from "./ApiStatus.tsx";
 import { ThemeToggle } from "./ThemeToggle.tsx";
 import { Button, buttonClass, cx } from "./ui.tsx";
 
@@ -59,13 +57,9 @@ function UserNav() {
 }
 
 function Footer() {
-  const health = useHealth();
   return (
     <footer className="border-t border-line bg-surface">
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 text-xs text-ink-subtle">
-        <span>Survey App</span>
-        <ApiStatus health={health.data} isLoading={health.isLoading} />
-      </div>
+      <div className="mx-auto max-w-5xl px-4 py-3 text-xs text-ink-subtle">Survey App</div>
     </footer>
   );
 }
